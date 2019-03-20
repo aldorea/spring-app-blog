@@ -17,8 +17,8 @@ public class MessageAssembler implements  ResourceAssembler<Message, Resource<Me
 	@Override
 	public Resource<Message> toResource(Message message) {
 		return new Resource<>(message,
-			linkTo(methodOn(MessageController.class).one(message.getId())).withSelfRel(),
-			linkTo(methodOn(MessageController.class).all()).withRel("messages"));
+			linkTo(methodOn(MessageController.class).getMessage(message.getId())).withSelfRel(),
+			linkTo(methodOn(MessageController.class).getMessages()).withRel("messages"));
 	}
 
 }

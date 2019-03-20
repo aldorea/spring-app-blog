@@ -39,18 +39,18 @@ public class CommentController {
 
 	// Get all comments from a message
 	@GetMapping("messages/{id}/comments")
-	public Resources<Resource<Comment>> all(@PathVariable int id) {
+	public Resources<Resource<Comment>> getComments(@PathVariable int id) {
 
 		List<Resource<Comment>> comments = messagesService.getMessageComments(id).stream()
 																				.map(commentAssembler::toResource)
 																				.collect(Collectors.toList());
-		return new Resources<>(comments, linkTo(methodOn(CommentController.class).all(id)).withSelfRel());
+		return new Resources<>(comments, linkTo(methodOn(CommentController.class).getComments(id)).withSelfRel());
 
 	}
 
 	// Get a comment by ID
 	@GetMapping("messages/{messageId}/comments/{commentId}")
-	public Resource<Comment> one(@PathVariable("messageId") int messageId, @PathVariable("commentId") int commentId) {
+	public Resource<Comment> getComment(@PathVariable("messageId") int messageId, @PathVariable("commentId") int commentId) {
 		
 		Comment comment = messagesService.getCommentById(messageId, commentId);
 		return commentAssembler.toResource(comment);

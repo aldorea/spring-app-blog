@@ -45,16 +45,16 @@ public class MessageController {
 
 	// Get all messages
 	@GetMapping("/messages")
-	public Resources<Resource<Message>> all() {
+	public Resources<Resource<Message>> getMessages() {
 
 		List<Resource<Message>> messages = messagesService.getMessages().stream().map(messageAssembler::toResource)
 				.collect(Collectors.toList());
-		return new Resources<>(messages, linkTo(methodOn(MessageController.class).all()).withSelfRel());
+		return new Resources<>(messages, linkTo(methodOn(MessageController.class).getMessages()).withSelfRel());
 	}
 
 	// Get message by ID
 	@GetMapping("messages/{id}")
-	public Resource<Message> one(@PathVariable int id) {
+	public Resource<Message> getMessage(@PathVariable int id) {
 
 		Message message = messagesService.getMessageById(id);
 		return messageAssembler.toResource(message);
